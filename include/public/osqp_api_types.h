@@ -46,6 +46,7 @@ typedef struct {
   OSQPInt device;                             ///< device identifier; currently used for CUDA devices
   enum osqp_linsys_solver_type linsys_solver; ///< linear system solver to use
   OSQPInt verbose;                            ///< boolean; write out progress
+  OSQPInt profiler_level;                     ///< integer; level of detail for profiler annotations
   OSQPInt warm_starting;                      ///< boolean; warm start
   OSQPInt scaling;                            ///< data scaling iterations; if 0, then disabled
   OSQPInt polishing;                          ///< boolean; polish ADMM solution

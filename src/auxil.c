@@ -954,6 +954,13 @@ OSQPInt validate_settings(const OSQPSettings* settings,
     return 1;
   }
 
+  if (settings->profile_level != 0 &&
+      settings->profile_level != 1 &&
+      settings->profile_level != 2) {
+    c_eprint("profile_level must be either 0, 1 or 2");
+    return 1;
+  }
+
   if (settings->verbose != 0 &&
       settings->verbose != 1) {
     c_eprint("verbose must be either 0 or 1");

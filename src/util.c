@@ -272,12 +272,13 @@ OSQPSettings* copy_settings(const OSQPSettings *settings) {
    * NB: Copying them explicitly because memcpy is not
    * defined when OSQP_ENABLE_PRINTING is disabled (appears in string.h)
    */
-  new->device        = settings->device;
-  new->linsys_solver = settings->linsys_solver;
-  new->verbose       = settings->verbose;
-  new->warm_starting = settings->warm_starting;
-  new->scaling       = settings->scaling;
-  new->polishing     = settings->polishing;
+  new->device         = settings->device;
+  new->linsys_solver  = settings->linsys_solver;
+  new->profiler_level = settings->profile_level;
+  new->verbose        = settings->verbose;
+  new->warm_starting  = settings->warm_starting;
+  new->scaling        = settings->scaling;
+  new->polishing      = settings->polishing;
 
   new->rho        = settings->rho;
   new->rho_is_vec = settings->rho_is_vec;

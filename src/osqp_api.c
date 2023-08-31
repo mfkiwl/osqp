@@ -106,6 +106,7 @@ void osqp_set_default_settings(OSQPSettings* settings) {
   settings->device = 0;                                      /* device identifier */
   settings->linsys_solver  = osqp_algebra_default_linsys();  /* linear system solver */
   settings->verbose        = OSQP_VERBOSE;                   /* print output */
+  settings->profiler_level = 0;                              /* Profiler annotation level */
   settings->warm_starting  = OSQP_WARM_STARTING;             /* warm starting */
   settings->scaling        = OSQP_SCALING;                   /* heuristic problem scaling */
   settings->polishing      = OSQP_POLISHING;                 /* ADMM solution polish: 1 */
@@ -161,6 +162,9 @@ OSQPInt osqp_setup(OSQPSolver**         solverp,
 
   // Validate settings
   if (validate_settings(settings, 1)) return osqp_error(OSQP_SETTINGS_VALIDATION_ERROR);
+
+  osqp_profiler_init(settings->profiler_level);
+  osqp_profiler_push(OSQP_PROFILER_SEC_SETUP);
 
   // Allocate empty solver
   solver = c_calloc(1, sizeof(OSQPSolver));
@@ -398,6 +402,9 @@ OSQPInt osqp_setup(OSQPSolver**         solverp,
     !(work->derivative_data->ryl) || !(work->derivative_data->ryu))
     return osqp_error(OSQP_MEM_ALLOC_ERROR);
 # endif /* ifdef OSQP_ENABLE_DERIVATIVES */
+
+  /* Pop section annotation OSQP_PROFILER_SEC_SETUP */
+  osqp_profiler_pop();
 
   // Return exit flag
   return 0;
